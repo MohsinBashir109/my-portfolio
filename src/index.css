@@ -13,7 +13,7 @@
   /* Landing-aligned palette (used site-wide) */
   --color-lp-bg: #0d0d0f;
   --color-lp-elevated: #14141a;
-  --color-lp-accent: #6ec1e4;
+  --color-lp-accent: #fb923c;
   /* Section eyebrows / uppercase labels (pairs with experience orange UI) */
   --color-lp-orange: #fb923c;
   --color-lp-purple: #b388ff;
@@ -26,22 +26,19 @@
   --color-accent-dim: oklch(0.72 0.14 195 / 0.12);
 }
 
-/* Skills marquee + landing hero: Simple Icons often ship brand hex fills — force orange to match theme */
+/* Landing hero tech icons: Simple Icons often ship brand hex fills — force orange to match theme */
 @layer components {
   /* react-icons applies className to the root <svg>; paths are direct children, not nested <svg> */
-  .skills-marquee-pill .skills-marquee-icon,
   .landing-tech-icon {
     color: #fb923c;
     color: var(--color-lp-orange);
   }
 
-  .skills-marquee-pill .skills-marquee-icon *,
   .landing-tech-icon * {
     fill: currentColor !important;
   }
 
   /* VS Code / stroke-first marks */
-  .skills-marquee-pill .skills-marquee-icon *[fill='none'],
   .landing-tech-icon *[fill='none'] {
     fill: none !important;
     stroke: currentColor !important;
@@ -215,7 +212,7 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.048;
   z-index: 50;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

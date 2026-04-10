@@ -1,10 +1,27 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
 import { PROJECTS } from '../lib/constants'
-import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion'
+import {
+  fadeUpBlur,
+  fadeUpSimple,
+  staggerCards,
+  staggerContainerInstant,
+  viewportReveal,
+} from '../lib/motion'
 import { iconForStack } from '../lib/techIcons'
 import { SectionHeading } from './SectionHeading'
 
 export function Projects() {
+  const reducedMotion = useReducedMotion() === true
+  const stagger = useMemo(
+    () => (reducedMotion ? staggerContainerInstant : staggerCards),
+    [reducedMotion]
+  )
+  const cardVariants = useMemo(
+    () => (reducedMotion ? fadeUpSimple : fadeUpBlur),
+    [reducedMotion]
+  )
+
   return (
     <section id="projects" className="relative px-6 py-24 sm:py-28" aria-labelledby="projects-heading">
       <div className="mx-auto max-w-5xl">
@@ -17,15 +34,15 @@ export function Projects() {
 
         <motion.div
           className="grid gap-6 md:grid-cols-2"
-          variants={staggerContainer}
-          initial="hidden"
+          variants={stagger}
+          initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
-          viewport={viewportOnce}
+          viewport={viewportReveal}
         >
           {PROJECTS.map((project) => (
             <motion.article
               key={project.title}
-              variants={fadeUp}
+              variants={cardVariants}
               tabIndex={-1}
               className="group card-lift relative overflow-hidden rounded-2xl border border-white/[0.08] bg-lp-elevated/45 p-6 shadow-xl shadow-black/30 transition-colors hover:border-lp-orange/40 hover:shadow-lg hover:shadow-lp-orange/[0.07] focus-within:border-lp-orange/45 focus-within:ring-2 focus-within:ring-lp-orange/25 focus-within:ring-offset-2 focus-within:ring-offset-lp-bg motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-xl"
             >

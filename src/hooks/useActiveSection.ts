@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 export function useActiveSection(sectionIds: readonly string[]) {
   const [activeId, setActiveId] = useState(sectionIds[0] ?? 'hero')
+  /** Content-only key so a fresh `[]` with the same ids does not recreate the observer */
+  const idsKey = sectionIds.join('\0')
 
   useEffect(() => {
     const elements = sectionIds
@@ -27,7 +29,7 @@ export function useActiveSection(sectionIds: readonly string[]) {
 
     elements.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [sectionIds])
+  }, [idsKey])
 
   return activeId
 }

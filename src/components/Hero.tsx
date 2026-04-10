@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useCallback } from 'react'
 import { PERSON } from '../lib/constants'
 import { fadeUp, staggerContainer } from '../lib/motion'
 import { HeroPortrait } from './HeroPortrait'
@@ -16,6 +17,11 @@ const social = [
 ] as const
 
 export function Hero() {
+  const reducedMotion = useReducedMotion() === true
+  const onScrollProjects = useCallback(() => scrollToId('projects'), [])
+  const onScrollContact = useCallback(() => scrollToId('contact'), [])
+  const onScrollAbout = useCallback(() => scrollToId('about'), [])
+
   return (
     <section
       id="hero"
@@ -68,14 +74,14 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() => scrollToId('projects')}
+              onClick={onScrollProjects}
               className="btn-press focus-ring inline-flex items-center justify-center rounded-full bg-zinc-100 px-6 py-3 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/18 ring-1 ring-transparent hover:bg-[#fdba74] hover:ring-lp-orange/50 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               View projects
             </button>
             <button
               type="button"
-              onClick={() => scrollToId('contact')}
+              onClick={onScrollContact}
               className="btn-press focus-ring inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-zinc-100 transition hover:border-lp-orange/50 hover:bg-lp-orange/10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               Contact me
@@ -126,14 +132,14 @@ export function Hero() {
         transition={{ delay: 1, duration: 0.6 }}
         onClick={(e) => {
           e.preventDefault()
-          scrollToId('about')
+          onScrollAbout()
         }}
       >
         <span className="text-[10px] font-medium uppercase tracking-[0.2em]">Scroll</span>
         <motion.span
           className="flex h-9 w-5 justify-center rounded-full border border-lp-orange/35 bg-white/5 pt-1.5"
-          animate={{ y: [0, 4, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reducedMotion ? undefined : { y: [0, 4, 0] }}
+          transition={reducedMotion ? { duration: 0 } : { duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <span className="h-1.5 w-1.5 rounded-full bg-lp-orange" />
         </motion.span>

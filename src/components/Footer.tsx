@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { PERSON } from '../lib/constants'
+import { fadeUpSimple, staggerCards, staggerContainerInstant, viewportRevealTight } from '../lib/motion'
 
 const links = [
   { label: 'GitHub', href: PERSON.github },
@@ -8,22 +9,31 @@ const links = [
 ] as const
 
 export function Footer() {
+  const reduce = useReducedMotion()
+  const stagger = reduce ? staggerContainerInstant : staggerCards
+
   return (
-    <footer className="border-t border-white/[0.06] bg-lp-bg/95 px-6 py-10 backdrop-blur-sm">
+    <footer className="relative z-10 border-t border-white/[0.06] bg-lp-bg/80 px-6 py-10 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 sm:flex-row">
         <motion.p
           className="text-sm text-zinc-500"
-          initial={{ opacity: 0, y: 6 }}
+          initial={reduce ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          viewport={viewportRevealTight}
+          transition={{ duration: reduce ? 0.01 : 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           © {new Date().getFullYear()} {PERSON.name}. Crafted with React &amp; attention to detail.
         </motion.p>
         <nav aria-label="Footer social">
-          <ul className="flex flex-wrap items-center justify-center gap-6">
+          <motion.ul
+            className="flex flex-wrap items-center justify-center gap-6"
+            variants={stagger}
+            initial={reduce ? false : 'hidden'}
+            whileInView="visible"
+            viewport={viewportRevealTight}
+          >
             {links.map((link) => (
-              <li key={link.label}>
+              <motion.li key={link.label} variants={fadeUpSimple}>
                 <a
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
@@ -32,9 +42,9 @@ export function Footer() {
                 >
                   {link.label}
                 </a>
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </nav>
       </div>
     </footer>

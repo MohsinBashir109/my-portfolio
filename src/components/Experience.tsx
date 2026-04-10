@@ -1,9 +1,14 @@
 import { useId, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2'
 import { IoLocationOutline } from 'react-icons/io5'
 import { EXPERIENCE } from '../lib/constants'
-import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion'
+import {
+  fadeUpSimple,
+  staggerCards,
+  staggerContainerInstant,
+  viewportReveal,
+} from '../lib/motion'
 import { ExperienceUiGallery } from './ExperienceUiGallery'
 import { SectionHeading } from './SectionHeading'
 
@@ -18,11 +23,12 @@ function websiteHost(url: string): string {
 export function Experience() {
   const baseId = useId()
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const reducedMotion = useReducedMotion() === true
 
   return (
     <section
       id="experience"
-      className="full-bleed relative bg-lp-bg px-6 py-24 sm:py-28"
+      className="full-bleed relative bg-transparent px-6 py-24 sm:py-28"
       aria-labelledby="experience-heading"
     >
       <div className="mx-auto max-w-5xl">
@@ -35,10 +41,10 @@ export function Experience() {
 
         <motion.div
           className="flex flex-col gap-3"
-          variants={staggerContainer}
-          initial="hidden"
+          variants={reducedMotion ? staggerContainerInstant : staggerCards}
+          initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
-          viewport={viewportOnce}
+          viewport={viewportReveal}
         >
           {EXPERIENCE.map((job, index) => {
             const isOpen = openIndex === index
@@ -46,7 +52,7 @@ export function Experience() {
             const website = job.websiteUrl?.trim() ? job.websiteUrl.trim() : null
 
             return (
-              <motion.div key={`${job.role}-${job.period}`} variants={fadeUp}>
+              <motion.div key={`${job.role}-${job.period}`} variants={fadeUpSimple}>
                 <h3 className="m-0">
                   <button
                     type="button"

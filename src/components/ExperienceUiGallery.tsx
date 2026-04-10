@@ -1,6 +1,15 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import type { ExperienceUiShot } from '../lib/constants'
-import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion'
+import {
+  fadeUpBlur,
+  fadeUpSimple,
+  fadeIn,
+  staggerCards,
+  staggerContainerInstant,
+  staggerRow,
+  staggerRowInstant,
+  viewportRevealTight,
+} from '../lib/motion'
 
 type ExperienceUiGalleryProps = {
   shots: readonly ExperienceUiShot[]
@@ -9,28 +18,36 @@ type ExperienceUiGalleryProps = {
 }
 
 export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUiGalleryProps) {
+  const reduce = useReducedMotion()
   if (shots.length === 0) return null
 
   const isExperience = variant === 'experience'
+  const stagger = reduce ? staggerContainerInstant : staggerCards
+  const row = reduce ? staggerRowInstant : staggerRow
+  const itemVariants = reduce ? fadeUpSimple : fadeUpBlur
 
   return (
     <motion.div
       className={`mt-6 border-t pt-6 ${isExperience ? 'border-white/10' : 'border-white/[0.06]'}`}
-      variants={staggerContainer}
-      initial="hidden"
+      variants={stagger}
+      initial={reduce ? false : 'hidden'}
       whileInView="visible"
-      viewport={viewportOnce}
+      viewport={viewportRevealTight}
     >
-      <p
+      <motion.p
+        variants={fadeIn}
         className={`mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] ${isExperience ? 'text-[#f4c4a0]/90' : 'text-zinc-500'}`}
       >
         Product &amp; UI
-      </p>
-      <ul className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      </motion.p>
+      <motion.ul
+        variants={row}
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {shots.map((shot, index) => (
           <motion.li
             key={`${shot.caption}-${index}`}
-            variants={fadeUp}
+            variants={itemVariants}
             className="w-[min(100%,280px)] shrink-0 snap-start sm:w-[300px]"
           >
             <div
@@ -77,7 +94,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
             </div>
           </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </motion.div>
   )
 }

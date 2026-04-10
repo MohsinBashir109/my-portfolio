@@ -4,11 +4,12 @@ import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Experience } from './components/Experience'
 import { Footer } from './components/Footer'
+import { ScrollProgressBar } from './components/motion'
+import { SiteAtmosphere } from './components/hero-atmosphere'
 import { LandingHero } from './components/LandingHero'
 import { Navbar } from './components/Navbar'
 import { Projects } from './components/Projects'
 import { SectionDivider } from './components/SectionDivider'
-import { Skills } from './components/Skills'
 
 export default function App() {
   const [showStickyNav, setShowStickyNav] = useState(false)
@@ -27,12 +28,12 @@ export default function App() {
 
   return (
     <div className="noise-bg relative min-h-svh">
+      <ScrollProgressBar />
+      <SiteAtmosphere />
       {showStickyNav ? <BackgroundDecor /> : null}
       {showStickyNav ? <Navbar /> : null}
-      <main>
+      <main className="relative z-10">
         <LandingHero />
-        <SectionDivider />
-        <Skills />
         <SectionDivider />
         <About />
         <SectionDivider />

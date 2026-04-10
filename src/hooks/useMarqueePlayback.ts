@@ -26,7 +26,7 @@ export function useMarqueePlayback() {
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [])
+  }, [reducedMotion])
 
   const playing = inView && !reducedMotion
 

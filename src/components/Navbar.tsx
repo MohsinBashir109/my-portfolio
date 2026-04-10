@@ -1,9 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
-import { NAV_SECTIONS } from '../lib/constants'
+import { NAV_SECTION_IDS, NAV_SECTIONS } from '../lib/constants'
 import { useActiveSection } from '../hooks/useActiveSection'
-
-const sectionIds = NAV_SECTIONS.map((s) => s.id)
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -12,7 +10,7 @@ function scrollToId(id: string) {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const activeId = useActiveSection(sectionIds)
+  const activeId = useActiveSection(NAV_SECTION_IDS)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -48,12 +46,17 @@ export function Navbar() {
             e.preventDefault()
             onNavClick('hero')
           }}
-          className="focus-ring group flex items-center gap-2 rounded-lg"
+          className="focus-ring group flex items-center gap-2.5 rounded-lg"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-sm font-semibold tracking-tight text-zinc-100 shadow-sm transition group-hover:border-lp-orange/50 group-hover:bg-lp-orange/15 group-hover:text-[#fdba74]">
-            MB
-          </span>
-          <span className="hidden text-sm font-medium text-zinc-400 transition group-hover:text-lp-orange sm:inline">
+          <img
+            src="/favicon.svg"
+            alt=""
+            width={56}
+            height={56}
+            className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14"
+            aria-hidden
+          />
+          <span className="hidden text-sm font-semibold text-[#fdba74] transition group-hover:text-white sm:inline">
             Mohsin Bashir
           </span>
         </a>

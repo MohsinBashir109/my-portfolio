@@ -1,10 +1,12 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { HERO_TECH } from '../lib/techIcons'
 
 const FLOAT_INDICES = [0, 2, 4, 6, 8, 10] as const
 
 /** Staggered tech icons — sits beside the portrait on large screens */
 export function HeroTechFloat() {
+  const reducedMotion = useReducedMotion() === true
+
   return (
     <div
       className="pointer-events-none relative hidden h-[min(380px,50vh)] w-40 shrink-0 lg:block"
@@ -24,12 +26,14 @@ export function HeroTechFloat() {
               animate={{
                 opacity: 1,
                 scale: 1,
-                y: [0, -6, 0],
+                y: reducedMotion ? 0 : [0, -6, 0],
               }}
               transition={{
                 opacity: { delay: 0.4 + i * 0.08, duration: 0.5 },
                 scale: { delay: 0.4 + i * 0.08, duration: 0.5 },
-                y: { delay: 1.2 + delay, duration: 4 + i * 0.4, repeat: Infinity, ease: 'easeInOut' },
+                y: reducedMotion
+                  ? { duration: 0 }
+                  : { delay: 1.2 + delay, duration: 4 + i * 0.4, repeat: Infinity, ease: 'easeInOut' },
               }}
             >
               <Icon className="h-6 w-6 text-lp-orange" title={name} />

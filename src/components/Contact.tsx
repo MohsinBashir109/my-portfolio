@@ -1,31 +1,46 @@
-import { motion } from 'framer-motion'
-import { type FormEvent, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { type FormEvent, useCallback, useMemo, useState } from 'react'
 import { PERSON } from '../lib/constants'
-import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion'
+import {
+  fadeUpSimple,
+  staggerCards,
+  staggerContainerInstant,
+  viewportReveal,
+} from '../lib/motion'
 import { SectionHeading } from './SectionHeading'
 
 const inputClass =
   'mt-2 w-full rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 hover:border-lp-orange/45 focus:border-lp-orange/60 focus:ring-2 focus:ring-lp-orange/35 focus:ring-offset-2 focus:ring-offset-lp-bg'
 
 export function Contact() {
+  const reducedMotion = useReducedMotion() === true
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
 
-  function onSubmit(e: FormEvent) {
+  const onSubmit = useCallback((e: FormEvent) => {
     e.preventDefault()
     const subject = encodeURIComponent(`Portfolio inquiry from ${name || 'visitor'}`)
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}\n\n— Sent from portfolio contact form`
     )
     window.location.href = `mailto:${PERSON.email}?subject=${subject}&body=${body}`
-  }
+  }, [name, email, message])
 
-  const links = [
-    { label: 'Email', value: PERSON.email, href: `mailto:${PERSON.email}` },
-    { label: 'LinkedIn', value: 'Profile', href: PERSON.linkedin },
-    { label: 'GitHub', value: 'Repositories', href: PERSON.github },
-  ] as const
+  const links = useMemo(
+    () =>
+      [
+        { label: 'Email', value: PERSON.email, href: `mailto:${PERSON.email}` },
+        { label: 'LinkedIn', value: 'Profile', href: PERSON.linkedin },
+        { label: 'GitHub', value: 'Repositories', href: PERSON.github },
+      ] as const,
+    []
+  )
+
+  const stagger = useMemo(
+    () => (reducedMotion ? staggerContainerInstant : staggerCards),
+    [reducedMotion]
+  )
 
   return (
     <section id="contact" className="relative px-6 py-24 sm:py-28" aria-labelledby="contact-heading">
@@ -39,13 +54,13 @@ export function Contact() {
 
         <motion.div
           className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch"
-          variants={staggerContainer}
-          initial="hidden"
+          variants={stagger}
+          initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
-          viewport={viewportOnce}
+          viewport={viewportReveal}
         >
           <motion.div
-            variants={fadeUp}
+            variants={fadeUpSimple}
             className="card-lift flex flex-col justify-between gap-8 rounded-2xl border border-white/[0.08] bg-lp-elevated/40 p-8 transition-colors hover:border-lp-orange/30 motion-reduce:hover:translate-y-0"
           >
             <div>
@@ -54,7 +69,7 @@ export function Contact() {
                 I can help.
               </p>
               <ul className="mt-8 space-y-4" role="list">
-                {links.map((item) => (
+                {links.map((item: (typeof links)[number]) => (
                   <li key={item.label}>
                     <p className="text-xs font-semibold uppercase tracking-wider text-lp-orange/90">{item.label}</p>
                     <a
@@ -73,7 +88,7 @@ export function Contact() {
           </motion.div>
 
           <motion.form
-            variants={fadeUp}
+            variants={fadeUpSimple}
             onSubmit={onSubmit}
             className="card-lift rounded-2xl border border-white/[0.08] bg-lp-elevated/45 p-8 shadow-xl shadow-black/25 transition-colors hover:border-lp-orange/25 motion-reduce:hover:translate-y-0"
             noValidate
