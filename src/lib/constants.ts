@@ -34,6 +34,11 @@ export const SKILLS = {
   tools: ['Git', 'GitHub', 'Android Studio', 'VS Code'],
 } as const
 
+/** Same order as `SkillsMarquee` rows (frontend+mobile, then backend+tools) */
+export function skillsMarqueeLabelsFlat(): string[] {
+  return [...SKILLS.frontend, ...SKILLS.mobile, ...SKILLS.backend, ...SKILLS.tools]
+}
+
 export type ExperienceUiShot = {
   /** Short label shown on the placeholder card */
   caption: string

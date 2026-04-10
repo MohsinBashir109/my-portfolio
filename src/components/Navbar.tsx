@@ -37,7 +37,7 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-[60] transition-[background,box-shadow,backdrop-filter] duration-300 ${
         scrolled
-          ? 'border-b border-white/5 bg-lp-bg/80 shadow-lg shadow-black/25 backdrop-blur-xl'
+          ? 'border-b border-white/5 bg-lp-bg/85 shadow-lg shadow-black/25 backdrop-blur-md'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -48,7 +48,7 @@ export function Navbar() {
             e.preventDefault()
             onNavClick('hero')
           }}
-          className="group flex items-center gap-2"
+          className="focus-ring group flex items-center gap-2 rounded-lg"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-sm font-semibold tracking-tight text-zinc-100 shadow-sm transition group-hover:border-lp-orange/50 group-hover:bg-lp-orange/15 group-hover:text-[#fdba74]">
             MB
@@ -69,7 +69,7 @@ export function Navbar() {
                   e.preventDefault()
                   onNavClick(id)
                 }}
-                className="relative px-3 py-2 text-sm text-zinc-400 transition hover:text-lp-orange"
+                className="focus-ring relative rounded-md px-3 py-2 text-sm text-zinc-400 transition hover:text-lp-orange"
               >
                 {label}
                 {active ? (
@@ -86,7 +86,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-200 transition hover:border-lp-orange/45 hover:bg-lp-orange/10 hover:text-[#fdba74] md:hidden"
+          className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-200 transition hover:border-lp-orange/45 hover:bg-lp-orange/10 hover:text-[#fdba74] md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -111,7 +111,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-white/5 bg-lp-bg/95 backdrop-blur-xl md:hidden"
+            className="border-t border-white/5 bg-lp-bg/95 backdrop-blur-md md:hidden"
           >
             <nav className="flex flex-col gap-1 px-4 py-4" aria-label="Mobile">
               {NAV_SECTIONS.map(({ id, label }, i) => (
@@ -125,7 +125,7 @@ export function Navbar() {
                     e.preventDefault()
                     onNavClick(id)
                   }}
-                  className={`rounded-lg px-3 py-3 text-sm font-medium transition-colors ${
+                  className={`focus-ring rounded-lg px-3 py-3 text-sm font-medium transition-colors ${
                     activeId === id
                       ? 'bg-lp-orange/10 text-[#fdba74]'
                       : 'text-zinc-300 hover:bg-lp-orange/10 hover:text-lp-orange'

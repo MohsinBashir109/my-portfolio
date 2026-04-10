@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant motion-safe (@media (prefers-reduced-motion: no-preference));
+@custom-variant motion-reduce (@media (prefers-reduced-motion: reduce));
 
 @theme {
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
@@ -24,20 +26,146 @@
   --color-accent-dim: oklch(0.72 0.14 195 / 0.12);
 }
 
-/* Skills marquee: Simple Icons often ship brand hex fills — force orange to match theme */
+/* Skills marquee + landing hero: Simple Icons often ship brand hex fills — force orange to match theme */
 @layer components {
-  .skills-marquee-pill .skills-marquee-icon {
+  /* react-icons applies className to the root <svg>; paths are direct children, not nested <svg> */
+  .skills-marquee-pill .skills-marquee-icon,
+  .landing-tech-icon {
+    color: #fb923c;
     color: var(--color-lp-orange);
   }
 
-  .skills-marquee-pill .skills-marquee-icon svg * {
+  .skills-marquee-pill .skills-marquee-icon *,
+  .landing-tech-icon * {
     fill: currentColor !important;
   }
 
   /* VS Code / stroke-first marks */
-  .skills-marquee-pill .skills-marquee-icon svg *[fill='none'] {
+  .skills-marquee-pill .skills-marquee-icon *[fill='none'],
+  .landing-tech-icon *[fill='none'] {
     fill: none !important;
     stroke: currentColor !important;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-lp-orange/55 focus-visible:ring-offset-2 focus-visible:ring-offset-lp-bg;
+  }
+
+  .card-lift {
+    transition-property: transform, border-color, box-shadow;
+    transition-duration: 280ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card-lift:hover {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+
+  .chip-lift {
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chip-lift:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  .btn-press {
+    transition:
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-press:hover {
+      transform: translate3d(0, -2px, 0);
+    }
+
+    .btn-press:active {
+      transform: translate3d(0, 0, 0) scale(0.98);
+    }
+  }
+}
+
+/* GPU-friendly infinite scroll — compositor-only transform (no Framer RAF) */
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation-name: marquee-x;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  backface-visibility: hidden;
+}
+
+.marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Landing hero shapes: translateY only (avoid animating rotate / filter) */
+@keyframes hero-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.hero-drift {
+  animation: hero-drift var(--hero-drift-duration, 6s) ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift {
+    animation: none;
+  }
+}
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(0, 10px, 0);
+    opacity: 1;
+  }
+}
+
+.scroll-cue-dot {
+  animation: scroll-cue 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-dot {
+    animation: none;
+    opacity: 0.85;
   }
 }
 

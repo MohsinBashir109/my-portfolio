@@ -9,7 +9,7 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-lp-bg/90 px-6 py-10 backdrop-blur-md">
+    <footer className="border-t border-white/[0.06] bg-lp-bg/95 px-6 py-10 backdrop-blur-sm">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 sm:flex-row">
         <motion.p
           className="text-sm text-zinc-500"
@@ -28,7 +28,7 @@ export function Footer() {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-sm font-medium text-zinc-400 transition hover:text-lp-orange"
+                  className="focus-ring rounded-sm text-sm font-medium text-zinc-400 transition hover:text-lp-orange"
                 >
                   {link.label}
                 </a>

@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { fadeUp, viewportOnce } from '../lib/motion'
 import { SectionHeading } from './SectionHeading'
-import { SkillsMarquee, skillsMarqueeLabelsFlat } from './SkillsMarquee'
+import { skillsMarqueeLabelsFlat } from '../lib/constants'
+import { SkillsMarquee } from './SkillsMarquee'
 
 export function Skills() {
   const allLabels = skillsMarqueeLabelsFlat()

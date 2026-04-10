@@ -34,7 +34,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
             className="w-[min(100%,280px)] shrink-0 snap-start sm:w-[300px]"
           >
             <div
-              className={`group overflow-hidden rounded-xl border shadow-lg shadow-black/20 transition ${isExperience ? 'border-white/10 bg-[#1a1510]/95 hover:border-[#fb923c]/45' : 'border-white/[0.08] bg-lp-bg/60 hover:border-lp-orange/40'}`}
+              className={`card-lift group overflow-hidden rounded-xl border shadow-lg shadow-black/20 transition-colors motion-reduce:hover:translate-y-0 ${isExperience ? 'border-white/10 bg-[#1a1510]/95 hover:border-[#fb923c]/45' : 'border-white/[0.08] bg-lp-bg/60 hover:border-lp-orange/40'}`}
             >
               {shot.imageSrc ? (
                 <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">

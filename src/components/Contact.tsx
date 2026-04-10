@@ -4,6 +4,9 @@ import { PERSON } from '../lib/constants'
 import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion'
 import { SectionHeading } from './SectionHeading'
 
+const inputClass =
+  'mt-2 w-full rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 hover:border-lp-orange/45 focus:border-lp-orange/60 focus:ring-2 focus:ring-lp-orange/35 focus:ring-offset-2 focus:ring-offset-lp-bg'
+
 export function Contact() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -43,7 +46,7 @@ export function Contact() {
         >
           <motion.div
             variants={fadeUp}
-            className="flex flex-col justify-between gap-8 rounded-2xl border border-white/[0.08] bg-lp-elevated/40 p-8 backdrop-blur-md transition hover:border-lp-orange/25"
+            className="card-lift flex flex-col justify-between gap-8 rounded-2xl border border-white/[0.08] bg-lp-elevated/40 p-8 transition-colors hover:border-lp-orange/30 motion-reduce:hover:translate-y-0"
           >
             <div>
               <p className="text-sm leading-relaxed text-zinc-400">
@@ -58,9 +61,9 @@ export function Contact() {
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="mt-1 inline-block text-sm font-medium text-lp-orange transition hover:text-[#fdba74]"
+                      className="focus-ring mt-1 inline-block rounded-sm text-sm font-medium text-lp-orange transition hover:text-[#fdba74]"
                     >
-                      {item.label === 'Email' ? item.value : item.value}
+                      {item.value}
                     </a>
                   </li>
                 ))}
@@ -72,7 +75,7 @@ export function Contact() {
           <motion.form
             variants={fadeUp}
             onSubmit={onSubmit}
-            className="rounded-2xl border border-white/[0.08] bg-lp-elevated/45 p-8 shadow-xl shadow-black/25 backdrop-blur-md transition hover:border-lp-orange/25"
+            className="card-lift rounded-2xl border border-white/[0.08] bg-lp-elevated/45 p-8 shadow-xl shadow-black/25 transition-colors hover:border-lp-orange/25 motion-reduce:hover:translate-y-0"
             noValidate
           >
             <div className="grid gap-5 sm:grid-cols-2">
@@ -84,7 +87,7 @@ export function Contact() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="name"
-                  className="mt-2 w-full rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none ring-lp-orange/15 transition placeholder:text-zinc-600 hover:border-lp-orange/40 focus:border-lp-orange/55 focus:ring-2 focus:ring-lp-orange/30"
+                  className={inputClass}
                   placeholder="Your name"
                 />
               </label>
@@ -96,7 +99,7 @@ export function Contact() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
-                  className="mt-2 w-full rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none ring-lp-orange/15 transition placeholder:text-zinc-600 hover:border-lp-orange/40 focus:border-lp-orange/55 focus:ring-2 focus:ring-lp-orange/30"
+                  className={inputClass}
                   placeholder="you@company.com"
                 />
               </label>
@@ -107,19 +110,17 @@ export function Contact() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={5}
-                  className="mt-2 w-full resize-y rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none ring-lp-orange/15 transition placeholder:text-zinc-600 hover:border-lp-orange/40 focus:border-lp-orange/55 focus:ring-2 focus:ring-lp-orange/30"
+                  className={inputClass}
                   placeholder="A short note about the opportunity or project…"
                 />
               </label>
             </div>
-            <motion.button
+            <button
               type="submit"
-              className="mt-6 w-full rounded-full border border-lp-orange/30 bg-lp-orange py-3.5 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/25 transition hover:border-[#fdba74] hover:bg-[#fdba74] sm:w-auto sm:px-10"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-press focus-ring mt-6 w-full rounded-full border border-lp-orange/30 bg-lp-orange py-3.5 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/25 hover:border-[#fdba74] hover:bg-[#fdba74] sm:w-auto sm:px-10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               Send message
-            </motion.button>
+            </button>
             <p className="mt-4 text-xs leading-relaxed text-zinc-500">
               Opens your email client with a pre-filled message—swap in Formspree or Resend when you want a true inbox
               workflow.

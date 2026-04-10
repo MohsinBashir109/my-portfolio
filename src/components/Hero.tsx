@@ -66,24 +66,20 @@ export function Hero() {
           className="order-3 lg:order-none lg:col-start-1 lg:row-start-2"
         >
           <div className="flex flex-wrap items-center gap-3">
-            <motion.button
+            <button
               type="button"
               onClick={() => scrollToId('projects')}
-              className="inline-flex items-center justify-center rounded-full bg-zinc-100 px-6 py-3 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/18 ring-1 ring-transparent transition hover:bg-[#fdba74] hover:ring-lp-orange/50"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-press focus-ring inline-flex items-center justify-center rounded-full bg-zinc-100 px-6 py-3 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/18 ring-1 ring-transparent hover:bg-[#fdba74] hover:ring-lp-orange/50 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               View projects
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               type="button"
               onClick={() => scrollToId('contact')}
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-zinc-100 backdrop-blur-sm transition hover:border-lp-orange/50 hover:bg-lp-orange/10"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-press focus-ring inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-zinc-100 transition hover:border-lp-orange/50 hover:bg-lp-orange/10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               Contact me
-            </motion.button>
+            </button>
           </div>
         </motion.div>
 
@@ -108,16 +104,14 @@ export function Hero() {
         >
           {social.map(({ label, href }) => (
             <li key={label}>
-              <motion.a
+              <a
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-300 transition hover:border-lp-orange/40 hover:text-lp-orange"
-                whileHover={{ y: -2 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+                className="btn-press focus-ring inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-300 hover:border-lp-orange/40 hover:text-lp-orange motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
               >
                 {label}
-              </motion.a>
+              </a>
             </li>
           ))}
         </motion.ul>
@@ -125,7 +119,7 @@ export function Hero() {
 
       <motion.a
         href="#about"
-        className="absolute bottom-8 left-1/2 z-[1] flex -translate-x-1/2 flex-col items-center gap-2 text-zinc-500"
+        className="focus-ring absolute bottom-8 left-1/2 z-[1] flex -translate-x-1/2 flex-col items-center gap-2 rounded-lg px-2 py-1 text-zinc-500"
         aria-label="Scroll to about section"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
