@@ -10,7 +10,7 @@ import {
 import { SectionHeading } from './SectionHeading'
 
 const inputClass =
-  'mt-2 w-full rounded-xl border border-lp-orange/20 bg-lp-bg/70 px-4 py-3 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 hover:border-lp-orange/45 focus:border-lp-orange/60 focus:ring-2 focus:ring-lp-orange/35 focus:ring-offset-2 focus:ring-offset-lp-bg'
+  'mt-2 w-full rounded-xl border border-border-subtle bg-input-bg px-4 py-3 text-sm text-slate-50 outline-none transition placeholder:text-slate-500 hover:border-border-subtle focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/35 focus:ring-offset-2 focus:ring-offset-lp-bg'
 
 export function Contact() {
   const reducedMotion = useReducedMotion() === true
@@ -61,22 +61,22 @@ export function Contact() {
         >
           <motion.div
             variants={fadeUpSimple}
-            className="card-lift flex flex-col justify-between gap-8 rounded-2xl border border-white/[0.08] bg-lp-elevated/40 p-8 transition-colors hover:border-lp-orange/30 motion-reduce:hover:translate-y-0"
+            className="card-lift flex flex-col justify-between gap-8 rounded-2xl border border-border-subtle bg-bg-surface/90 p-8 transition-colors hover:border-brand-primary/25 motion-reduce:hover:translate-y-0"
           >
             <div>
-              <p className="text-sm leading-relaxed text-zinc-400">
+              <p className="text-sm font-normal leading-relaxed text-slate-400">
                 Prefer email or socials? I respond best to concise context: what you&apos;re building, timelines, and how
                 I can help.
               </p>
               <ul className="mt-8 space-y-4" role="list">
                 {links.map((item: (typeof links)[number]) => (
                   <li key={item.label}>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-lp-orange/90">{item.label}</p>
+                    <p className="font-mono text-xs font-medium uppercase tracking-wider text-brand-highlight/90">{item.label}</p>
                     <a
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="focus-ring mt-1 inline-block rounded-sm text-sm font-medium text-lp-orange transition hover:text-[#fdba74]"
+                      className="focus-ring mt-1 inline-block rounded-sm text-sm font-medium text-brand-primary transition hover:text-brand-highlight"
                     >
                       {item.value}
                     </a>
@@ -84,18 +84,18 @@ export function Contact() {
                 ))}
               </ul>
             </div>
-            <p className="text-xs text-lp-orange/45">{PERSON.location}</p>
+            <p className="text-xs text-slate-500">{PERSON.location}</p>
           </motion.div>
 
           <motion.form
             variants={fadeUpSimple}
             onSubmit={onSubmit}
-            className="card-lift rounded-2xl border border-white/[0.08] bg-lp-elevated/45 p-8 shadow-xl shadow-black/25 transition-colors hover:border-lp-orange/25 motion-reduce:hover:translate-y-0"
+            className="card-lift rounded-2xl border border-border-subtle bg-bg-surface/90 p-8 shadow-xl shadow-black/25 transition-colors hover:border-brand-primary/20 motion-reduce:hover:translate-y-0"
             noValidate
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block sm:col-span-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-lp-orange/90">Name</span>
+                <span className="font-mono text-xs font-medium uppercase tracking-wider text-brand-highlight/90">Name</span>
                 <input
                   type="text"
                   name="name"
@@ -107,7 +107,7 @@ export function Contact() {
                 />
               </label>
               <label className="block sm:col-span-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-lp-orange/90">Email</span>
+                <span className="font-mono text-xs font-medium uppercase tracking-wider text-brand-highlight/90">Email</span>
                 <input
                   type="email"
                   name="email"
@@ -119,7 +119,7 @@ export function Contact() {
                 />
               </label>
               <label className="block sm:col-span-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-lp-orange/90">Message</span>
+                <span className="font-mono text-xs font-medium uppercase tracking-wider text-brand-highlight/90">Message</span>
                 <textarea
                   name="message"
                   value={message}
@@ -132,11 +132,11 @@ export function Contact() {
             </div>
             <button
               type="submit"
-              className="btn-press focus-ring mt-6 w-full rounded-full border border-lp-orange/30 bg-lp-orange py-3.5 text-sm font-semibold text-lp-bg shadow-lg shadow-lp-orange/25 hover:border-[#fdba74] hover:bg-[#fdba74] sm:w-auto sm:px-10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
+              className="btn-press focus-ring mt-6 w-full rounded-full border border-brand-cta/35 bg-brand-cta py-3.5 text-sm text-white shadow-[0_0_36px_-10px_rgba(255,138,76,0.35)] hover:border-brand-cta-hover hover:bg-brand-cta-hover sm:w-auto sm:px-10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               Send message
             </button>
-            <p className="mt-4 text-xs leading-relaxed text-zinc-500">
+            <p className="mt-4 text-xs leading-relaxed text-slate-500">
               Opens your email client with a pre-filled message—swap in Formspree or Resend when you want a true inbox
               workflow.
             </p>

@@ -62,16 +62,16 @@ export function Experience() {
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     className={`flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-[background-color,box-shadow] duration-200 sm:px-6 sm:py-5 ${
                       isOpen
-                        ? 'rounded-t-xl rounded-b-none bg-[#ea580c] shadow-lg shadow-[#ea580c]/35'
-                        : 'rounded-xl bg-[#7c2d12] ring-1 ring-transparent hover:brightness-110 hover:ring-[#fdba74]/40'
+                        ? 'rounded-t-xl rounded-b-none bg-gradient-to-r from-brand-primary to-brand-secondary shadow-[0_0_50px_rgba(124,58,237,0.2)]'
+                        : 'rounded-xl bg-bg-surface ring-1 ring-border-subtle hover:bg-[#162033] hover:ring-brand-primary/35'
                     }`}
                   >
-                    <span className="min-w-0 text-base font-bold leading-snug text-white sm:text-lg">
+                    <span className="min-w-0 font-geist text-base font-semibold leading-snug text-white sm:text-lg">
                       {job.role} <span className="text-white/90">@</span> {job.company}
                     </span>
                     <span className="flex shrink-0 items-center gap-3">
-                      <span className="text-sm font-bold tabular-nums text-white sm:text-base">{job.period}</span>
-                      <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#fdba74]/30 text-xl font-light leading-none text-white ring-1 ring-[#fb923c]/45">
+                      <span className="font-mono text-sm font-medium tabular-nums text-white sm:text-base">{job.period}</span>
+                      <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15 text-xl font-light leading-none text-white ring-1 ring-white/25">
                         {isOpen ? '−' : '+'}
                       </span>
                     </span>
@@ -86,9 +86,9 @@ export function Experience() {
                       id={panelId}
                       role="region"
                       aria-labelledby={`${baseId}-trigger-${index}`}
-                      className="rounded-b-xl bg-[#1c1410] px-5 pb-6 pt-5 sm:px-6 sm:pb-8 sm:pt-6"
+                      className="rounded-b-xl border border-t-0 border-border-subtle bg-bg-main px-5 pb-6 pt-5 sm:px-6 sm:pb-8 sm:pt-6"
                     >
-                      <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#f4c4a0]">
+                      <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-400">
                         <span className="inline-flex items-center gap-1.5">
                           <IoLocationOutline className="h-[1.1em] w-[1.1em] shrink-0 opacity-90" aria-hidden />
                           {job.location}
@@ -98,7 +98,7 @@ export function Experience() {
                             href={website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 font-medium underline decoration-[#fb923c]/50 underline-offset-2 transition hover:text-[#fdba74] hover:decoration-[#fdba74]/75"
+                            className="inline-flex items-center gap-1.5 font-medium underline decoration-brand-primary/45 underline-offset-2 transition hover:text-brand-highlight hover:decoration-brand-highlight/60"
                           >
                             {websiteHost(website)}
                             <HiArrowTopRightOnSquare className="h-[1em] w-[1em] shrink-0 opacity-90" aria-hidden />
@@ -116,7 +116,7 @@ export function Experience() {
                           ))}
                         </ul>
                         <p
-                          className="shrink-0 font-[family-name:var(--font-family-display)] text-3xl font-normal tracking-tight text-white/95 sm:text-4xl lg:text-right lg:leading-none"
+                          className="shrink-0 font-geist text-3xl font-semibold tracking-tight text-white/95 sm:text-4xl lg:text-right lg:leading-none"
                           aria-hidden
                         >
                           {job.company}
@@ -127,7 +127,7 @@ export function Experience() {
                         <ul className="mt-8 flex flex-wrap gap-2" role="list">
                           {job.skillTags.map((tag) => (
                             <li key={tag}>
-                              <span className="inline-block rounded-full bg-[#9a3412] px-3 py-1.5 text-xs font-medium tracking-wide text-white ring-1 ring-[#fdba74]/25">
+                              <span className="inline-block rounded-full border border-border-subtle bg-bg-elevated px-3 py-1.5 font-mono text-xs font-medium tracking-wide text-brand-highlight ring-1 ring-brand-primary/15">
                                 {tag}
                               </span>
                             </li>

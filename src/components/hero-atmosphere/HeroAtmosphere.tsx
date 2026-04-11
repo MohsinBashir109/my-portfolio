@@ -12,13 +12,6 @@ import {
   stepAmbient,
   type AmbientParticle,
 } from './ambientLayer'
-import {
-  connectionLinkDistance,
-  connectionNodeCount,
-  createConnectionNodes,
-  drawConnectionLines,
-  type ConnectionPoint,
-} from './connectionLines'
 import { drawTrail, maxTrailForMode, spawnTrailBurst, stepTrail, type TrailParticle } from './trailLayer'
 
 export type HeroAtmosphereProps = {
@@ -28,7 +21,7 @@ export type HeroAtmosphereProps = {
 }
 
 /**
- * Single canvas: ambient dust, static orange mesh, cursor trail.
+ * Single canvas: ambient dust and cursor trail (no node mesh).
  * Adaptive DPR, debounced resize, mode-aware counts; lighter work on mobile / tablet.
  */
 export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroAtmosphereProps) {
@@ -56,7 +49,6 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
     let cw = 0
     let ch = 0
     let dpr = 1
-    let connectionNodes: ConnectionPoint[] = []
     let lastMode: AtmosphereMode = getAtmosphereMode()
     let resizeRaf = 0
 
@@ -81,7 +73,6 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
         canvas.style.height = `${h}px`
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
         ambientRef.current = createAmbientParticles(w, h, ambientCountForMode(m))
-        connectionNodes = createConnectionNodes(w, h, connectionNodeCount(m))
       } else {
         modeRef.current = m
       }
@@ -187,7 +178,6 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       if (!rm && mode !== 'mobile' && maxTrail > 0) {
         drawTrail(ctx, trailPool)
       }
-      drawConnectionLines(ctx, connectionNodes, connectionLinkDistance(w, h, mode), mode)
     }
 
     rafRef.current = requestAnimationFrame(tick)

@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 import { HERO_TECH } from '../lib/techIcons'
 import { useMarqueePlayback } from '../hooks/useMarqueePlayback'
 
-export type HeroTechMarqueeTone = 'dark' | 'orange'
+export type HeroTechMarqueeTone = 'dark' | 'landing'
 
 const TechPill = memo(function TechPill({
   name,
@@ -14,9 +14,9 @@ const TechPill = memo(function TechPill({
   tone: HeroTechMarqueeTone
 }) {
   const pill =
-    tone === 'orange'
-      ? 'border-[#c2410c]/35 bg-[#9a3412]/38 backdrop-blur-sm shadow-[0_4px_20px_-8px_rgba(154,52,18,0.35)] hover:border-[#9a3412]/50 hover:bg-[#9a3412]/48 motion-safe:hover:border-[#fdba74]/35'
-      : 'border-white/[0.06] bg-white/[0.025] shadow-none hover:border-white/12 hover:bg-white/[0.04] motion-safe:hover:border-lp-orange/25'
+    tone === 'landing'
+      ? 'border-border-subtle/50 bg-transparent shadow-none hover:border-brand-primary/35 hover:bg-white/[0.06] motion-safe:hover:shadow-[0_0_24px_rgba(34,211,238,0.08)]'
+      : 'border-white/[0.06] bg-white/[0.025] shadow-none hover:border-white/12 hover:bg-white/[0.04] motion-safe:hover:border-brand-primary/25'
 
   return (
     <span
@@ -24,11 +24,11 @@ const TechPill = memo(function TechPill({
       aria-hidden="true"
     >
       <Icon
-        className={`h-[1rem] w-[1rem] shrink-0 sm:h-[1.125rem] sm:w-[1.125rem] ${tone === 'orange' ? 'text-[#fff7ed]' : 'text-lp-orange/80'}`}
+        className={`h-[1rem] w-[1rem] shrink-0 sm:h-[1.125rem] sm:w-[1.125rem] ${tone === 'landing' ? 'text-brand-highlight' : 'text-brand-primary/80'}`}
         title={name}
       />
       <span
-        className={`text-[11px] font-medium tracking-wide sm:text-xs ${tone === 'orange' ? 'text-[#f2e6dc]' : 'text-zinc-500'}`}
+        className={`font-mono text-[11px] font-medium tracking-wide sm:text-xs ${tone === 'landing' ? 'text-slate-300' : 'text-zinc-500'}`}
       >
         {name}
       </span>
@@ -38,7 +38,7 @@ const TechPill = memo(function TechPill({
 
 type HeroTechMarqueeProps = {
   className?: string
-  /** `orange` matches solid landing hero; fades and pills read on tangerine. */
+  /** `landing` matches dark hero; pills use surface + cyan tag signal. */
   tone?: HeroTechMarqueeTone
 }
 
@@ -46,9 +46,7 @@ export function HeroTechMarquee({ className = '', tone = 'dark' }: HeroTechMarqu
   const { ref, playing, reducedMotion } = useMarqueePlayback()
   const row = useMemo(() => [...HERO_TECH, ...HERO_TECH], [])
   const fadeFrom =
-    tone === 'orange'
-      ? 'from-[#f97316] via-[#f97316]/93'
-      : 'from-lp-bg via-lp-bg/90'
+    tone === 'landing' ? 'from-bg-main via-bg-main/93' : 'from-lp-bg via-lp-bg/90'
 
   if (reducedMotion) {
     return (

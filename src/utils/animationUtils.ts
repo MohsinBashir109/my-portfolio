@@ -23,22 +23,37 @@ export function staggerReveal(ids: string[], baseDelay = 0, step = 150) {
   })
 }
 
+/** Gate → landing: circle expand duration (must match CSS transition on `#fill-circle`). */
+export const GATE_FILL_EXPAND_MS = 680
+
 export function fillBurst(
   originX: number,
   originY: number,
-  color = '#f97316',
+  color = '#0b1020',
   onMidpoint?: (() => void) | null,
   onComplete?: (() => void) | null,
 ) {
   const fill = document.getElementById('fill-layer')
   const circle = document.getElementById('fill-circle')
-  if (!fill || !circle || !(circle instanceof HTMLElement)) return
+  if (!fill || !circle || !(circle instanceof HTMLElement)) {
+    onComplete?.()
+    return
+  }
+
+  let reduceMotion = false
+  try {
+    reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    /* ignore */
+  }
+
+  const expandMs = reduceMotion ? 1 : GATE_FILL_EXPAND_MS
 
   const maxR =
     Math.hypot(
       Math.max(originX, window.innerWidth - originX),
       Math.max(originY, window.innerHeight - originY),
-    ) * 2.4
+    ) * 2.45
 
   fill.style.opacity = '1'
   circle.style.left = `${originX}px`
@@ -46,7 +61,7 @@ export function fillBurst(
   circle.style.width = '0px'
   circle.style.height = '0px'
   circle.style.background = color
-  circle.style.transition = `width 0.72s ${EASE_IN_OUT}, height 0.72s ${EASE_IN_OUT}`
+  circle.style.transition = `width ${expandMs}ms ${EASE_IN_OUT}, height ${expandMs}ms ${EASE_IN_OUT}`
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -57,11 +72,10 @@ export function fillBurst(
 
   window.setTimeout(() => {
     onMidpoint?.()
-  }, 400)
+  }, Math.round(expandMs * 0.52))
 
+  /** Full-screen brand fill is the handoff frame — unmount gate here (no extra fade) so landing overlay can continue. */
   window.setTimeout(() => {
-    fill.style.transition = 'opacity 0.5s ease'
-    fill.style.opacity = '0'
     onComplete?.()
-  }, 720)
+  }, expandMs)
 }

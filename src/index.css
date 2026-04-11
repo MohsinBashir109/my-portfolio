@@ -5,47 +5,83 @@
 @custom-variant motion-reduce (@media (prefers-reduced-motion: reduce));
 
 @theme {
-  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-family-display: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-poppins: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  --font-roboto-mono: 'Roboto Mono', ui-monospace, monospace;
+  /* Body / paragraphs */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Headings + hero display */
+  --font-geist: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  /* Legacy token — section titles & display (Geist) */
+  --font-family-display: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  /* Code, tags, terminal, buttons, tech labels */
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Landing-aligned palette (used site-wide) */
-  --color-lp-bg: #0d0d0f;
-  --color-lp-elevated: #14141a;
-  --color-lp-accent: #fb923c;
-  /* Section eyebrows / uppercase labels (pairs with experience orange UI) */
-  --color-lp-orange: #fb923c;
-  --color-lp-purple: #b388ff;
-  --color-lp-purple-deep: #9333ea;
+  /* Recommended palette — core */
+  --color-bg-main: #0b1020;
+  --color-bg-surface: #111827;
+  --color-bg-elevated: #1a2238;
+  --color-bg-deep: #070b14;
+  --color-border-subtle: #24304a;
 
-  --color-surface: oklch(0.14 0.01 260);
-  --color-surface-elevated: oklch(0.18 0.012 260);
-  --color-border-subtle: oklch(0.28 0.02 260);
-  --color-accent: oklch(0.72 0.14 195);
-  --color-accent-dim: oklch(0.72 0.14 195 / 0.12);
+  --color-brand-primary: #4f8cff;
+  --color-brand-primary-hover: #3b82f6;
+  --color-brand-secondary: #7c3aed;
+  --color-brand-highlight: #22d3ee;
+  --color-brand-cta: #ff8a4c;
+  --color-brand-cta-hover: #f97316;
+
+  --color-input-bg: #0f172a;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Motion / glow references (use in shadow-* or arbitrary) */
+  --shadow-glow-blue: 0 0 40px rgba(79, 140, 255, 0.25);
+  --shadow-glow-purple: 0 0 50px rgba(124, 58, 237, 0.2);
+  --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.18);
+
+  /* Legacy names — map to new system so existing utilities keep working */
+  --color-lp-bg: var(--color-bg-main);
+  --color-lp-elevated: var(--color-bg-surface);
+  --color-lp-accent: var(--color-brand-primary);
+  --color-lp-orange: var(--color-brand-cta);
+  --color-lp-purple: var(--color-brand-secondary);
+  --color-lp-purple-deep: #6d28d9;
+
+  /* Older tokens kept for any stray references */
+  --color-surface: var(--color-bg-surface);
+  --color-surface-elevated: var(--color-bg-elevated);
+  --color-accent: var(--color-brand-primary);
+  --color-accent-dim: rgb(79 140 255 / 0.12);
 }
 
-/* Landing hero tech icons: Simple Icons often ship brand hex fills — force orange to match theme */
+/* Hero headline gradient — one or two highlighted words */
+@layer utilities {
+  .text-gradient-brand {
+    background: linear-gradient(90deg, #4f8cff 0%, #7c3aed 60%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+/* Landing hero tech icons — electric blue (trust / tech signal) */
 @layer components {
-  /* react-icons applies className to the root <svg>; paths are direct children, not nested <svg> */
   .landing-tech-icon {
-    color: #fb923c;
-    color: var(--color-lp-orange);
+    color: var(--color-brand-primary);
   }
 
   .landing-tech-icon * {
     fill: currentColor !important;
   }
 
-  /* VS Code / stroke-first marks */
   .landing-tech-icon *[fill='none'] {
     fill: none !important;
     stroke: currentColor !important;
   }
 
   .focus-ring {
-    @apply outline-none focus-visible:ring-2 focus-visible:ring-lp-orange/55 focus-visible:ring-offset-2 focus-visible:ring-offset-lp-bg;
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-lp-bg;
   }
 
   .card-lift {
@@ -73,6 +109,7 @@
   }
 
   .btn-press {
+    @apply font-mono font-medium;
     transition:
       transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
       background-color 200ms ease,
@@ -166,6 +203,192 @@
   }
 }
 
+/* Landing hero decorative loops — CSS animations (compositor), no JS RAF */
+.landing-loop {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-loop {
+    animation: none !important;
+  }
+}
+
+@keyframes landing-clay-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes landing-clay-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(4px, -6px, 0);
+  }
+}
+
+@keyframes landing-clay-pulse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(0, -6px, 0) scale(1.06);
+    opacity: 0.72;
+  }
+}
+
+.landing-clay-float {
+  animation-name: landing-clay-float;
+}
+
+.landing-clay-drift {
+  animation-name: landing-clay-drift;
+}
+
+.landing-clay-pulse {
+  animation-name: landing-clay-pulse;
+}
+
+@keyframes landing-decor-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(3deg);
+  }
+}
+
+@keyframes landing-decor-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2.5deg);
+  }
+  50% {
+    transform: translate3d(10px, -12px, 0) rotate(3deg);
+  }
+}
+
+@keyframes landing-decor-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0);
+  }
+}
+
+@keyframes landing-decor-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+}
+
+@keyframes landing-decor-sway {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes landing-decor-twinkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+.landing-decor-float {
+  animation-name: landing-decor-float;
+}
+
+.landing-decor-drift {
+  animation-name: landing-decor-drift;
+}
+
+.landing-decor-bob {
+  animation-name: landing-decor-bob;
+}
+
+.landing-decor-pulse {
+  animation-name: landing-decor-pulse;
+}
+
+.landing-decor-sway {
+  animation-name: landing-decor-sway;
+}
+
+.landing-decor-twinkle {
+  animation-name: landing-decor-twinkle;
+}
+
+@keyframes landing-donut-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) scale(1.04);
+  }
+}
+
+@keyframes landing-donut-ring {
+  from {
+    transform: rotate(-38deg);
+  }
+  to {
+    transform: rotate(322deg);
+  }
+}
+
+.landing-donut-bob {
+  animation-name: landing-donut-bob;
+}
+
+.landing-donut-ring {
+  animation-name: landing-donut-ring;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-donut-ring {
+    animation: none !important;
+    transform: rotate(-38deg);
+  }
+}
+
 /* Break out of max-width container to full viewport width */
 .full-bleed {
   width: 100vw;
@@ -175,6 +398,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -186,7 +410,8 @@
   }
 
   body {
-    @apply bg-lp-bg text-zinc-300 font-sans antialiased;
+    @apply bg-lp-bg text-slate-300 font-sans antialiased;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -198,9 +423,20 @@
     display: none;
   }
 
+  #root {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #root::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
   body ::selection {
-    background-color: color-mix(in srgb, var(--color-lp-orange) 32%, transparent);
-    color: #fff7ed;
+    background-color: color-mix(in srgb, var(--color-brand-primary) 35%, transparent);
+    color: #f8fafc;
   }
 }
 
@@ -213,4 +449,20 @@
   opacity: 0.048;
   z-index: 50;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/*
+ * Hide native scrollbars site-wide (outside @layer so Tailwind cannot override).
+ * Scrolling still works; Windows classic track uses zero-sized WebKit pseudo.
+ */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
 }

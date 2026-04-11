@@ -19,7 +19,7 @@ export function GatePage({ onEnter }: GatePageProps) {
     const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2
     const cy = rect ? rect.top + rect.height / 2 : window.innerHeight / 2
 
-    fillBurst(cx, cy, '#f97316', null, () => {
+    fillBurst(cx, cy, '#0b1020', null, () => {
       onEnter()
     })
   }
@@ -30,39 +30,8 @@ export function GatePage({ onEnter }: GatePageProps) {
 
       <GateTechOrbs />
 
-      <div className={styles.logoWrap}>
-        <svg viewBox="0 0 100 100" fill="none" className={styles.hexSvg} aria-hidden>
-          <g className={styles.hexSpin} style={{ transformOrigin: '50px 50px' }}>
-            <polygon
-              points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5"
-              fill="none"
-              stroke="#f97316"
-              strokeWidth="1"
-              strokeDasharray="6 4"
-              opacity="0.4"
-            />
-          </g>
-          <polygon
-            className={styles.hexPulse}
-            points="50,12 82,30 82,70 50,88 18,70 18,30"
-            fill="none"
-            stroke="#f97316"
-            strokeWidth="1.5"
-            opacity="0.3"
-          />
-          <polygon
-            points="50,20 76,35 76,65 50,80 24,65 24,35"
-            fill="rgba(249,115,22,0.1)"
-            stroke="#f97316"
-            strokeWidth="2"
-          />
-        </svg>
-        <div className={styles.mbLabel}>MB</div>
-      </div>
-
-      <div className={styles.gateTitle}>PORTFOLIO · 2026</div>
       <div className={styles.gateName}>
-        MOHSIN <span className={styles.orange}>BASHIR</span>
+        MOHSIN <span className={styles.accent}>BASHIR</span>
       </div>
 
       <button

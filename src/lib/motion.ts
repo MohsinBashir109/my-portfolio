@@ -86,15 +86,6 @@ export const fadeIn: Variants = {
   },
 }
 
-export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.58, ease: easePremium },
-  },
-}
-
 /** Subtle blur-to-clear — skip when reduced motion (use `fadeUpSimple` instead) */
 export const fadeUpBlur: Variants = {
   hidden: { opacity: 0, y: 22, filter: 'blur(7px)' },
@@ -123,12 +114,6 @@ export const dividerReveal: Variants = {
     opacity: 1,
     transition: { duration: 0.9, ease: easePremium },
   },
-}
-
-export const viewportOnce = {
-  once: true,
-  margin: '-6% 0px -6% 0px' as const,
-  amount: 0.12 as const,
 }
 
 /** Slightly earlier trigger for section bodies */

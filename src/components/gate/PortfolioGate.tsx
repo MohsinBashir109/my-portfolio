@@ -25,14 +25,13 @@ export function PortfolioGate({ onComplete }: PortfolioGateProps) {
   }, [])
 
   const handleEnter = useCallback(() => {
-    window.setTimeout(() => {
-      try {
-        sessionStorage.setItem(PORTFOLIO_GATE_SESSION_KEY, '1')
-      } catch {
-        /* ignore */
-      }
-      onComplete()
-    }, 420)
+    try {
+      sessionStorage.setItem(PORTFOLIO_GATE_SESSION_KEY, '1')
+    } catch {
+      /* ignore */
+    }
+    /** Same frame as fillBurst completion — circle already covers the viewport. */
+    onComplete()
   }, [onComplete])
 
   useEffect(() => {

@@ -67,9 +67,9 @@ export function drawTrail(ctx: CanvasRenderingContext2D, pool: TrailParticle[]) 
     if (a < 0.002) continue
     const rad = p.size * 5.4
     const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad)
-    g.addColorStop(0, `rgba(255, 230, 200, ${a * 0.58})`)
-    g.addColorStop(0.45, `rgba(251, 146, 60, ${a * 0.36})`)
-    g.addColorStop(1, 'rgba(120, 55, 20, 0)')
+    g.addColorStop(0, `rgba(200, 220, 255, ${a * 0.5})`)
+    g.addColorStop(0.45, `rgba(79, 140, 255, ${a * 0.34})`)
+    g.addColorStop(1, 'rgba(11, 16, 32, 0)')
     ctx.fillStyle = g
     ctx.beginPath()
     ctx.arc(p.x, p.y, rad, 0, Math.PI * 2)

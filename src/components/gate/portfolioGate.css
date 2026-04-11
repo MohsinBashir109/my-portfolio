@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 .portfolio-gate-root {
-  --gate-orange: #f97316;
-  --gate-orange-dim: rgba(249, 115, 22, 0.45);
-  --gate-bg: #080808;
+  /* Matches site tokens: black base + brand primary / cyan glow (see index.css --color-brand-*) */
+  --gate-bg: #000000;
+  --gate-orange: #4f8cff;
+  --gate-orange-bright: #93c4ff;
+  --gate-orange-muted: rgba(79, 140, 255, 0.38);
+  --gate-orange-dim: rgba(79, 140, 255, 0.52);
+  --gate-orange-glow: rgba(79, 140, 255, 0.48);
+  --gate-text-muted: rgba(210, 212, 218, 0.5);
+  --gate-text-hint: rgba(190, 192, 200, 0.38);
+  --gate-ghost: rgba(79, 120, 200, 0.09);
   --gate-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --gate-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -47,7 +54,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(249, 115, 22, 0.5);
+  border: 1px solid var(--gate-orange-dim);
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
@@ -72,10 +79,11 @@
 .portfolio-gate-root #fill-circle {
   position: absolute;
   border-radius: 50%;
-  background: var(--gate-orange);
+  background: #0b1020;
   width: 0;
   height: 0;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 72px rgba(15, 23, 42, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

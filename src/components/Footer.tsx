@@ -13,10 +13,10 @@ export function Footer() {
   const stagger = reduce ? staggerContainerInstant : staggerCards
 
   return (
-    <footer className="relative z-10 border-t border-white/[0.06] bg-lp-bg/80 px-6 py-10 backdrop-blur-md">
+    <footer className="relative z-10 border-t border-border-subtle bg-bg-deep/95 px-6 py-10 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 sm:flex-row">
         <motion.p
-          className="text-sm text-zinc-500"
+          className="text-sm text-slate-500"
           initial={reduce ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportRevealTight}
@@ -38,7 +38,7 @@ export function Footer() {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="focus-ring rounded-sm text-sm font-medium text-zinc-400 transition hover:text-lp-orange"
+                  className="focus-ring rounded-sm text-sm font-medium text-slate-400 transition hover:text-brand-highlight"
                 >
                   {link.label}
                 </a>

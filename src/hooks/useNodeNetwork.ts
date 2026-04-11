@@ -46,11 +46,11 @@ export function useNodeNetwork(
       const nodes = nodesRef.current
 
       ctx.clearRect(0, 0, W, H)
-      ctx.fillStyle = '#080808'
+      ctx.fillStyle = '#000000'
       ctx.fillRect(0, 0, W, H)
 
       const glow = ctx.createRadialGradient(W / 2, H * 0.65, 0, W / 2, H * 0.65, H * 0.6)
-      glow.addColorStop(0, 'rgba(249,115,22,0.07)')
+      glow.addColorStop(0, 'rgba(79,140,255,0.1)')
       glow.addColorStop(1, 'transparent')
       ctx.fillStyle = glow
       ctx.fillRect(0, 0, W, H)
@@ -78,11 +78,11 @@ export function useNodeNetwork(
           const dy = a.y - b.y
           const dist = Math.sqrt(dx * dx + dy * dy)
           if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.38
+            const alpha = (1 - dist / MAX_DIST) * 0.32
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(249,115,22,${alpha})`
+            ctx.strokeStyle = `rgba(79,140,255,${alpha})`
             ctx.lineWidth = 0.7
             ctx.stroke()
           }
@@ -93,17 +93,17 @@ export function useNodeNetwork(
         const dx = mouse.x - n.x
         const dy = mouse.y - n.y
         const d = Math.sqrt(dx * dx + dy * dy)
-        const bright = d < 130 ? 0.9 : 0.35
+        const bright = d < 130 ? 0.75 : 0.28
 
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(249,115,22,${bright})`
+        ctx.fillStyle = `rgba(79,140,255,${bright})`
         ctx.fill()
 
         if (d < 130) {
           ctx.beginPath()
           ctx.arc(n.x, n.y, n.r + 4, 0, Math.PI * 2)
-          ctx.strokeStyle = 'rgba(249,115,22,0.12)'
+          ctx.strokeStyle = 'rgba(79,140,255,0.14)'
           ctx.lineWidth = 1
           ctx.stroke()
         }
