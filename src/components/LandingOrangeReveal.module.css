@@ -1,0 +1,43 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  pointer-events: auto;
+  background: #f97316;
+  clip-path: circle(145% at 50% 44%);
+  will-change: clip-path;
+  transition: clip-path 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overlayShine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 38%,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.overlayGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.overlayIris {
+  clip-path: circle(0% at 50% 44%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition-duration: 0.01ms;
+  }
+}
