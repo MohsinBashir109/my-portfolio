@@ -1,0 +1,187 @@
+.gate {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transform-style: preserve-3d;
+}
+
+.bgText {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 18vw, 200px);
+  color: var(--gate-ghost);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.techOrbLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.techOrb {
+  position: absolute;
+  width: clamp(46px, 11vw, 68px);
+  height: clamp(46px, 11vw, 68px);
+  perspective: 480px;
+}
+
+.techOrbMotion {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.techOrbFace {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(79, 140, 255, 0.38);
+  background: linear-gradient(
+    148deg,
+    rgba(79, 140, 255, 0.14) 0%,
+    rgba(0, 0, 0, 0.88) 48%,
+    rgba(34, 211, 238, 0.1) 100%
+  );
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 26px rgba(79, 140, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transform: translateZ(10px);
+}
+
+.techOrbIcon {
+  width: 56%;
+  height: 56%;
+  color: var(--gate-orange);
+  filter: drop-shadow(0 2px 14px rgba(79, 140, 255, 0.45));
+}
+
+.techOrbIcon * {
+  fill: currentColor;
+}
+
+.techOrbIcon *[fill='none'] {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+.gateName {
+  position: relative;
+  z-index: 30;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(38px, 6vw, 68px);
+  color: #fff;
+  letter-spacing: 0.08em;
+  margin-bottom: 52px;
+  line-height: 1;
+}
+.accent {
+  color: var(--gate-orange);
+}
+
+.enterBtn {
+  position: relative;
+  z-index: 30;
+  width: 176px;
+  height: 176px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.btnOuter {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(79, 140, 255, 0.32);
+  animation: rotateCW 8s linear infinite;
+}
+.btnMid {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(79, 140, 255, 0.22);
+  animation: rotateCCW 5s linear infinite;
+}
+.btnInner {
+  position: absolute;
+  inset: 24px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, rgba(22, 32, 58, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+  border: 1px solid rgba(79, 140, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    transform 0.3s;
+}
+.enterBtn:hover .btnInner {
+  background: linear-gradient(160deg, rgba(32, 48, 88, 0.96) 0%, rgba(14, 20, 40, 0.98) 100%);
+  border-color: var(--gate-orange);
+  transform: scale(1.05);
+}
+.clicked .btnInner {
+  background: linear-gradient(160deg, rgba(40, 60, 110, 0.98) 0%, rgba(16, 24, 48, 1) 100%) !important;
+  border-color: var(--gate-orange) !important;
+}
+.btnDot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gate-orange);
+  opacity: 0.78;
+}
+.btnIcon {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.22em;
+  color: var(--gate-orange);
+  margin-bottom: 4px;
+}
+.btnSub {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--gate-orange-muted);
+  font-weight: 500;
+}
+@keyframes rotateCW {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotateCCW {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.gateHint {
+  position: relative;
+  z-index: 30;
+  margin-top: 38px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gate-text-hint);
+  font-weight: 400;
+}

@@ -28,7 +28,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
 
   return (
     <motion.div
-      className={`mt-6 border-t pt-6 ${isExperience ? 'border-white/10' : 'border-white/[0.06]'}`}
+      className={`mt-6 border-t border-border-subtle pt-6`}
       variants={stagger}
       initial={reduce ? false : 'hidden'}
       whileInView="visible"
@@ -36,7 +36,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
     >
       <motion.p
         variants={fadeIn}
-        className={`mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] ${isExperience ? 'text-[#f4c4a0]/90' : 'text-zinc-500'}`}
+        className={`mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.2em] ${isExperience ? 'text-brand-highlight/90' : 'text-slate-500'}`}
       >
         Product &amp; UI
       </motion.p>
@@ -51,7 +51,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
             className="w-[min(100%,280px)] shrink-0 snap-start sm:w-[300px]"
           >
             <div
-              className={`card-lift group overflow-hidden rounded-xl border shadow-lg shadow-black/20 transition-colors motion-reduce:hover:translate-y-0 ${isExperience ? 'border-white/10 bg-[#1a1510]/95 hover:border-[#fb923c]/45' : 'border-white/[0.08] bg-lp-bg/60 hover:border-lp-orange/40'}`}
+              className={`card-lift group overflow-hidden rounded-xl border shadow-lg shadow-black/20 transition-colors motion-reduce:hover:translate-y-0 ${isExperience ? 'border-border-subtle bg-bg-surface/95 hover:border-brand-primary/40' : 'border-border-subtle bg-bg-main/80 hover:border-brand-primary/35'}`}
             >
               {shot.imageSrc ? (
                 <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
@@ -67,27 +67,27 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
                 <div
                   className={`flex aspect-[16/10] flex-col items-center justify-center gap-2 bg-gradient-to-br p-4 text-center ${
                     isExperience
-                      ? 'from-[#2a2218]/90 to-[#14110c] text-zinc-400'
+                      ? 'from-bg-elevated/95 to-bg-main text-slate-400'
                       : 'from-zinc-900/80 to-zinc-950'
                   }`}
                 >
-                  <span className={`text-xs font-medium ${isExperience ? 'text-[#f4c4a0]/85' : 'text-zinc-400'}`}>
+                  <span className={`text-xs font-medium ${isExperience ? 'text-slate-300' : 'text-zinc-400'}`}>
                     {shot.caption}
                   </span>
                   <span
                     className={`text-[11px] leading-relaxed ${isExperience ? 'text-zinc-500' : 'text-zinc-600'}`}
                   >
                     UI screenshot placeholder — set{' '}
-                    <span className={`font-mono ${isExperience ? 'text-[#fb923c]/55' : 'text-zinc-500'}`}>imageSrc</span>{' '}
+                    <span className={`font-mono ${isExperience ? 'text-brand-primary/70' : 'text-zinc-500'}`}>imageSrc</span>{' '}
                     on this slot in{' '}
-                    <span className={`font-mono ${isExperience ? 'text-[#fb923c]/55' : 'text-zinc-500'}`}>
+                    <span className={`font-mono ${isExperience ? 'text-brand-primary/70' : 'text-zinc-500'}`}>
                       constants.ts
                     </span>
                   </span>
                 </div>
               )}
               <p
-                className={`border-t px-3 py-2 text-[11px] ${isExperience ? 'border-white/10 text-[#f4c4a0]/80' : 'border-white/[0.06] text-zinc-500'}`}
+                className={`border-t px-3 py-2 text-[11px] ${isExperience ? 'border-border-subtle text-slate-400' : 'border-border-subtle text-slate-500'}`}
               >
                 {shot.caption}
               </p>

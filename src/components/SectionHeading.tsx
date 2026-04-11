@@ -23,7 +23,7 @@ export function SectionHeading({ id, eyebrow, title, subtitle }: SectionHeadingP
       {eyebrow ? (
         <motion.p
           variants={fadeIn}
-          className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-lp-orange"
+          className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-brand-highlight"
         >
           {eyebrow}
         </motion.p>
@@ -31,12 +31,12 @@ export function SectionHeading({ id, eyebrow, title, subtitle }: SectionHeadingP
       <motion.h2
         id={id}
         variants={fadeUpSimple}
-        className="font-[family-name:var(--font-family-display)] text-3xl font-normal tracking-tight text-zinc-100 sm:text-4xl"
+        className="font-geist text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl"
       >
         {title}
       </motion.h2>
       {subtitle ? (
-        <motion.p variants={fadeUpSimple} className="mt-3 text-base leading-relaxed text-zinc-400">
+        <motion.p variants={fadeUpSimple} className="mt-3 text-base font-normal leading-relaxed text-slate-400">
           {subtitle}
         </motion.p>
       ) : null}

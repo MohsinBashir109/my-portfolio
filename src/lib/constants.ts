@@ -6,40 +6,7 @@ export const PERSON = {
   phone: '+92 316 4612126',
   linkedin: 'https://www.linkedin.com/in/mohsin-bashir-81412a30a',
   github: 'https://github.com/MohsinBashir109',
-  /** Add a file under `public/` (e.g. `/portrait.jpg`) or set to `null` for the text placeholder. */
-  heroPortraitSrc: null as string | null,
-  heroPortraitAlt: 'Mohsin Bashir — portrait',
 } as const
-
-export const NAV_SECTIONS = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
-] as const
-
-/** Stable list for scroll-spy / observers — do not build a new array each render */
-export const NAV_SECTION_IDS: readonly string[] = NAV_SECTIONS.map((s) => s.id)
-
-export const SKILLS = {
-  frontend: ['React', 'JavaScript', 'TypeScript', 'Redux Toolkit', 'REST APIs', 'Component architecture'],
-  mobile: [
-    'React Native',
-    'Cross-platform apps',
-    'React Navigation',
-    'State management',
-    'UI implementation',
-    'API integration',
-  ],
-  backend: ['Node.js', 'Express.js', 'MongoDB', 'PostgreSQL', 'Firebase'],
-  tools: ['Git', 'GitHub', 'Android Studio', 'VS Code'],
-} as const
-
-/** Flat list for hero rails / marquees (frontend+mobile, then backend+tools) */
-export function skillsMarqueeLabelsFlat(): string[] {
-  return [...SKILLS.frontend, ...SKILLS.mobile, ...SKILLS.backend, ...SKILLS.tools]
-}
 
 export type ExperienceUiShot = {
   /** Short label shown on the placeholder card */

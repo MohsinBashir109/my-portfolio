@@ -1,4 +1,4 @@
-/** Ambient dust / ember field — warm, low contrast */
+/** Ambient dust — cool blue / cyan, low contrast */
 
 export type AmbientParticle = {
   x: number
@@ -78,12 +78,12 @@ export function drawAmbient(
     const rad = p.r * 4.2
     const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad)
     if (simpleGradient) {
-      g.addColorStop(0, `rgba(255, 210, 170, ${a * 0.85})`)
-      g.addColorStop(1, 'rgba(251, 146, 60, 0)')
+      g.addColorStop(0, `rgba(186, 210, 255, ${a * 0.75})`)
+      g.addColorStop(1, 'rgba(79, 140, 255, 0)')
     } else {
-      g.addColorStop(0, `rgba(255, 218, 175, ${a * 0.95})`)
-      g.addColorStop(0.35, `rgba(251, 146, 60, ${a * 0.52})`)
-      g.addColorStop(1, 'rgba(251, 146, 60, 0)')
+      g.addColorStop(0, `rgba(200, 224, 255, ${a * 0.88})`)
+      g.addColorStop(0.35, `rgba(79, 140, 255, ${a * 0.45})`)
+      g.addColorStop(1, 'rgba(79, 140, 255, 0)')
     }
     ctx.fillStyle = g
     ctx.beginPath()

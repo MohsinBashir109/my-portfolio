@@ -7,7 +7,7 @@ export function SectionDivider() {
   return (
     <div className="relative mx-auto max-w-5xl px-6 py-1" aria-hidden="true">
       <motion.div
-        className="h-px w-full origin-left bg-gradient-to-r from-transparent via-lp-orange/30 to-transparent"
+        className="h-px w-full origin-left bg-gradient-to-r from-transparent via-brand-primary/25 to-transparent"
         variants={dividerReveal}
         initial={reduce ? false : 'hidden'}
         whileInView="visible"

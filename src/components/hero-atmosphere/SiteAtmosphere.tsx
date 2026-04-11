@@ -3,8 +3,8 @@ import { FilmGrainOverlay } from './FilmGrain'
 import { HeroAtmosphere } from './HeroAtmosphere'
 
 /**
- * Full-viewport dust + cursor trail (same canvas as hero). Sits under page content (`z-[5]`).
- * Section wrappers use transparent bg where needed so the effect reads through “empty” areas.
+ * Full-viewport dust + cursor trail. Above main (`z-10`) so the effect is visible on the landing
+ * hero; wrapper stays `pointer-events-none` so clicks reach links and buttons underneath.
  */
 export function SiteAtmosphere() {
   const viewportRef = useRef<HTMLDivElement>(null)
@@ -12,7 +12,7 @@ export function SiteAtmosphere() {
   return (
     <div
       ref={viewportRef}
-      className="pointer-events-none fixed inset-0 z-[5] min-h-[100dvh] min-h-svh w-full overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[11] min-h-[100dvh] min-h-svh w-full overflow-hidden"
       aria-hidden
     >
       <HeroAtmosphere boundsRef={viewportRef} />
