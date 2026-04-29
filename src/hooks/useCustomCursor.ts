@@ -9,11 +9,30 @@ export function useCustomCursor() {
     const ring = ringRef.current
     if (!cursor || !ring) return
 
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (coarsePointer || reduceMotion) return
+
+    let raf = 0
+    let x = -999
+    let y = -999
+
+    const apply = () => {
+      raf = 0
+      const t = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
+      cursor.style.transform = t
+      ring.style.transform = t
+    }
+
+    const schedule = () => {
+      if (raf) return
+      raf = requestAnimationFrame(apply)
+    }
+
     const move = (e: MouseEvent) => {
-      cursor.style.left = `${e.clientX}px`
-      cursor.style.top = `${e.clientY}px`
-      ring.style.left = `${e.clientX}px`
-      ring.style.top = `${e.clientY}px`
+      x = e.clientX
+      y = e.clientY
+      schedule()
     }
     const down = () => {
       cursor.style.width = '6px'
@@ -34,6 +53,7 @@ export function useCustomCursor() {
     document.addEventListener('mousedown', down)
     document.addEventListener('mouseup', up)
     return () => {
+      if (raf) cancelAnimationFrame(raf)
       document.removeEventListener('mousemove', move)
       document.removeEventListener('mousedown', down)
       document.removeEventListener('mouseup', up)

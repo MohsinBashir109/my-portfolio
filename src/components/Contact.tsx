@@ -10,7 +10,7 @@ import {
 import { SectionHeading } from './SectionHeading'
 
 const inputClass =
-  'mt-2 w-full rounded-xl border border-border-subtle bg-input-bg px-4 py-3 text-sm text-slate-50 outline-none transition placeholder:text-slate-500 hover:border-border-subtle focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/35 focus:ring-offset-2 focus:ring-offset-lp-bg'
+  'mt-2 w-full rounded-xl border border-border-subtle bg-input-bg px-4 py-3 text-[13px] text-slate-50 outline-none transition placeholder:text-slate-500 hover:border-border-subtle focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/35 focus:ring-offset-2 focus:ring-offset-lp-bg sm:text-sm'
 
 export function Contact() {
   const reducedMotion = useReducedMotion() === true
@@ -64,7 +64,7 @@ export function Contact() {
             className="card-lift flex flex-col justify-between gap-8 rounded-2xl border border-border-subtle bg-bg-surface/90 p-8 transition-colors hover:border-brand-primary/25 motion-reduce:hover:translate-y-0"
           >
             <div>
-              <p className="text-sm font-normal leading-relaxed text-slate-400">
+              <p className="text-[13px] font-normal leading-relaxed text-slate-400 sm:text-sm">
                 Prefer email or socials? I respond best to concise context: what you&apos;re building, timelines, and how
                 I can help.
               </p>
@@ -76,7 +76,7 @@ export function Contact() {
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="focus-ring mt-1 inline-block rounded-sm text-sm font-medium text-brand-primary transition hover:text-brand-highlight"
+                      className="focus-ring mt-1 inline-block rounded-sm text-[13px] font-medium text-brand-primary transition hover:text-brand-highlight sm:text-sm"
                     >
                       {item.value}
                     </a>
@@ -132,7 +132,7 @@ export function Contact() {
             </div>
             <button
               type="submit"
-              className="btn-press focus-ring mt-6 w-full rounded-full border border-brand-cta/35 bg-brand-cta py-3.5 text-sm text-white shadow-[0_0_36px_-10px_rgba(255,138,76,0.35)] hover:border-brand-cta-hover hover:bg-brand-cta-hover sm:w-auto sm:px-10 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
+              className="btn-press focus-ring mt-6 w-full rounded-full border border-brand-cta/35 bg-brand-cta py-3.5 text-[13px] text-white shadow-[0_0_36px_-10px_rgba(255,138,76,0.35)] hover:border-brand-cta-hover hover:bg-brand-cta-hover sm:w-auto sm:px-10 sm:text-sm motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
             >
               Send message
             </button>

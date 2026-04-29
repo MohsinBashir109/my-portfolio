@@ -36,7 +36,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
     >
       <motion.p
         variants={fadeIn}
-        className={`mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.2em] ${isExperience ? 'text-brand-highlight/90' : 'text-slate-500'}`}
+        className={`mb-4 font-mono text-[9px] font-medium uppercase tracking-[0.2em] sm:text-[10px] ${isExperience ? 'text-brand-highlight/90' : 'text-slate-500'}`}
       >
         Product &amp; UI
       </motion.p>
@@ -71,11 +71,11 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
                       : 'from-zinc-900/80 to-zinc-950'
                   }`}
                 >
-                  <span className={`text-xs font-medium ${isExperience ? 'text-slate-300' : 'text-zinc-400'}`}>
+                  <span className={`text-[11px] font-medium sm:text-xs ${isExperience ? 'text-slate-300' : 'text-zinc-400'}`}>
                     {shot.caption}
                   </span>
                   <span
-                    className={`text-[11px] leading-relaxed ${isExperience ? 'text-zinc-500' : 'text-zinc-600'}`}
+                    className={`text-[10px] leading-relaxed sm:text-[11px] ${isExperience ? 'text-zinc-500' : 'text-zinc-600'}`}
                   >
                     UI screenshot placeholder — set{' '}
                     <span className={`font-mono ${isExperience ? 'text-brand-primary/70' : 'text-zinc-500'}`}>imageSrc</span>{' '}
@@ -87,7 +87,7 @@ export function ExperienceUiGallery({ shots, variant = 'default' }: ExperienceUi
                 </div>
               )}
               <p
-                className={`border-t px-3 py-2 text-[11px] ${isExperience ? 'border-border-subtle text-slate-400' : 'border-border-subtle text-slate-500'}`}
+                className={`border-t px-3 py-2 text-[10px] sm:text-[11px] ${isExperience ? 'border-border-subtle text-slate-400' : 'border-border-subtle text-slate-500'}`}
               >
                 {shot.caption}
               </p>
