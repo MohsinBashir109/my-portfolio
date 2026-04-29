@@ -66,11 +66,11 @@ export function Experience() {
                         : 'rounded-xl bg-bg-surface ring-1 ring-border-subtle hover:bg-[#162033] hover:ring-brand-primary/35'
                     }`}
                   >
-                    <span className="min-w-0 font-geist text-base font-semibold leading-snug text-white sm:text-lg">
+                    <span className="min-w-0 font-geist text-[15px] font-semibold leading-snug text-white sm:text-lg">
                       {job.role} <span className="text-white/90">@</span> {job.company}
                     </span>
                     <span className="flex shrink-0 items-center gap-3">
-                      <span className="font-mono text-sm font-medium tabular-nums text-white sm:text-base">{job.period}</span>
+                      <span className="font-mono text-[13px] font-medium tabular-nums text-white sm:text-base">{job.period}</span>
                       <span className="flex h-8 w-8 items-center justify-center rounded-md bg-white/15 text-xl font-light leading-none text-white ring-1 ring-white/25">
                         {isOpen ? '−' : '+'}
                       </span>
@@ -88,7 +88,7 @@ export function Experience() {
                       aria-labelledby={`${baseId}-trigger-${index}`}
                       className="rounded-b-xl border border-t-0 border-border-subtle bg-bg-main px-5 pb-6 pt-5 sm:px-6 sm:pb-8 sm:pt-6"
                     >
-                      <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-400">
+                      <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-slate-400 sm:text-sm">
                         <span className="inline-flex items-center gap-1.5">
                           <IoLocationOutline className="h-[1.1em] w-[1.1em] shrink-0 opacity-90" aria-hidden />
                           {job.location}
@@ -107,7 +107,7 @@ export function Experience() {
                       </div>
 
                       <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
-                        <ul className="max-w-xl space-y-3 text-sm leading-relaxed text-white" role="list">
+                        <ul className="max-w-xl space-y-3 text-[13px] leading-relaxed text-white sm:text-sm" role="list">
                           {job.highlights.map((line) => (
                             <li key={line} className="flex gap-3">
                               <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/50" aria-hidden />
@@ -116,7 +116,7 @@ export function Experience() {
                           ))}
                         </ul>
                         <p
-                          className="shrink-0 font-geist text-3xl font-semibold tracking-tight text-white/95 sm:text-4xl lg:text-right lg:leading-none"
+                          className="shrink-0 font-geist text-2xl font-semibold tracking-tight text-white/95 sm:text-3xl lg:text-right lg:text-4xl lg:leading-none"
                           aria-hidden
                         >
                           {job.company}
@@ -127,7 +127,7 @@ export function Experience() {
                         <ul className="mt-8 flex flex-wrap gap-2" role="list">
                           {job.skillTags.map((tag) => (
                             <li key={tag}>
-                              <span className="inline-block rounded-full border border-border-subtle bg-bg-elevated px-3 py-1.5 font-mono text-xs font-medium tracking-wide text-brand-highlight ring-1 ring-brand-primary/15">
+                              <span className="inline-block rounded-full border border-border-subtle bg-bg-elevated px-3 py-1.5 font-mono text-[11px] font-medium tracking-wide text-brand-highlight ring-1 ring-brand-primary/15 sm:text-xs">
                                 {tag}
                               </span>
                             </li>

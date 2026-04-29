@@ -18,14 +18,23 @@ export type HeroAtmosphereProps = {
   boundsRef: RefObject<HTMLElement | null>
   parallaxRef?: RefObject<HTMLElement | null>
   className?: string
+  /** When false, pauses all drawing work (used when hero is off-screen). */
+  active?: boolean
 }
 
 /**
  * Single canvas: ambient dust and cursor trail (no node mesh).
  * Adaptive DPR, debounced resize, mode-aware counts; lighter work on mobile / tablet.
  */
-export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroAtmosphereProps) {
+export function HeroAtmosphere({
+  boundsRef,
+  parallaxRef,
+  className = '',
+  active = true,
+}: HeroAtmosphereProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
+  const sizeRef = useRef({ w: 0, h: 0 })
   const reducedMotion = useReducedMotion() === true
   const reducedMotionRef = useRef(reducedMotion)
   reducedMotionRef.current = reducedMotion
@@ -34,6 +43,11 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
   const trailRef = useRef<TrailParticle[]>([])
   const rafRef = useRef<number>(0)
   const visibleRef = useRef(true)
+  const activeRef = useRef(active)
+  const startRef = useRef<(() => void) | null>(null)
+  const stopRef = useRef<(() => void) | null>(null)
+
+  activeRef.current = active
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -45,12 +59,16 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       desynchronized: true,
     } as CanvasRenderingContext2DSettings)
     if (!ctx) return
+    ctxRef.current = ctx
 
     let cw = 0
     let ch = 0
     let dpr = 1
     let lastMode: AtmosphereMode = getAtmosphereMode()
     let resizeRaf = 0
+    let lastDraw = 0
+    const targetFrameMs = 1000 / 60
+    const rectRef = { current: host.getBoundingClientRect() }
 
     const syncSize = () => {
       const w = host.clientWidth
@@ -64,6 +82,7 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       if (sizeChanged || modeChanged) {
         cw = w
         ch = h
+        sizeRef.current = { w, h }
         lastMode = m
         modeRef.current = m
         dpr = devicePixelRatioForMode(m)
@@ -76,6 +95,8 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       } else {
         modeRef.current = m
       }
+
+      rectRef.current = host.getBoundingClientRect()
     }
 
     const scheduleSync = () => {
@@ -94,7 +115,7 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
     let prevSy = sy
 
     const onPointer = (e: PointerEvent) => {
-      const r = host.getBoundingClientRect()
+      const r = rectRef.current
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return
       tx = e.clientX - r.left
       ty = e.clientY - r.top
@@ -119,7 +140,9 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
 
     const tick = (t: number) => {
       rafRef.current = requestAnimationFrame(tick)
-      if (!visibleRef.current) return
+      if (!visibleRef.current || !activeRef.current) return
+      if (t - lastDraw < targetFrameMs) return
+      lastDraw = t
 
       const w = cw
       const h = ch
@@ -180,10 +203,28 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       }
     }
 
-    rafRef.current = requestAnimationFrame(tick)
+    const start = () => {
+      if (!activeRef.current || rafRef.current) return
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    const stop = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = 0
+      trailRef.current.length = 0
+      const { w, h } = sizeRef.current
+      const c = ctxRef.current
+      if (c && w > 0 && h > 0) c.clearRect(0, 0, w, h)
+      if (parallaxRef?.current) parallaxRef.current.style.transform = 'translate3d(0,0,0)'
+    }
+
+    startRef.current = start
+    stopRef.current = stop
+
+    start()
 
     return () => {
-      cancelAnimationFrame(rafRef.current)
+      stop()
       cancelAnimationFrame(resizeRaf)
       window.removeEventListener('pointermove', onPointer)
       document.removeEventListener('visibilitychange', onVisibility)
@@ -191,8 +232,17 @@ export function HeroAtmosphere({ boundsRef, parallaxRef, className = '' }: HeroA
       ro.disconnect()
       trailRef.current = []
       if (parallaxRef?.current) parallaxRef.current.style.transform = 'translate3d(0,0,0)'
+      startRef.current = null
+      stopRef.current = null
+      ctxRef.current = null
     }
   }, [boundsRef, parallaxRef])
+
+  useEffect(() => {
+    activeRef.current = active
+    if (active) startRef.current?.()
+    else stopRef.current?.()
+  }, [active])
 
   return (
     <canvas
